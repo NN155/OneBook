@@ -19,6 +19,10 @@ const roomSchema = new Schema({
     type: String,
     enum: ['available', 'booked', 'unavailable'], // Можливі статуси кімнати
     default: 'available' // Стандартне значення
+  },
+  image: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true // Додає поля createdAt і updatedAt

@@ -10,7 +10,6 @@ const RootLayout = () => {
                 <Header />
             </Box>
             <Box flex="1" p={4}>
-                <h1>Safasf</h1>
                 <Outlet />
             </Box>
             <Box as="footer" bg="gray.800" color="white" p={4}>
