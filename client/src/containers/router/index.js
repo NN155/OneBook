@@ -5,9 +5,9 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" component={<RootLayout />}>
-                    <Route index component={<></>} />
-                    <Route path="/create" component={<></>} />
+                <Route path="/" element={<RootLayout />}>
+                    <Route index element={<></>} />
+                    <Route path="/create" element={<></>} />
                 </Route>
             </Routes>
         </BrowserRouter>
