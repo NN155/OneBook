@@ -50,10 +50,10 @@ const CreateRoomForm = () => {
       });
   };
 
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
     const form = new FormData();
     form.append("name", formData.name);
     form.append("type", formData.type);
@@ -137,7 +137,7 @@ const CreateRoomForm = () => {
             </Flex>
         </FormControl>
 
-          <Button type="submit" colorScheme="blue" width="full">
+          <Button type="submit" colorScheme="blue" width="full" isDisabled={isSubmitting}>
             Create Room
           </Button>
         </VStack>
