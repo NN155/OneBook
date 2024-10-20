@@ -1,19 +1,18 @@
-const cloudinary = require('cloudinary').v2;
 const RoomServices = require('../../services/roomServices');
+const uploadToCloudinary = require('../../services/imageService');
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 class RoomController {
     async createRoom(req, res) {
-        const { name, type, price, image } = req.body;
+        const { name, type, price } = req.body;
         try {
-            const room = await RoomServices.create({ name, type, price, image });
+            const imageUrl = await uploadToCloudinary(req.file.path, {
+                folder: 'rooms'
+            });
+            const room = await RoomServices.create({ name, type, price, imageUrl });
             return res.json(room);
         } catch (error) {
+            console.log(error)
             return res.status(400).json({ message: error.message });
         }
     }

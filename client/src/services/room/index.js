@@ -2,23 +2,23 @@ import axios from 'axios';
 
 class RoomService {
     constructor() {
-        this.apiUrl = process.env.MESSAGE_API_URL + "/rooms"; // або вкажіть ваш URL
+        this.apiUrl = process.env.REACT_APP_API_URL + "/rooms"; // або вкажіть ваш URL
     }
 
     // Метод для створення кімнати
     createRoom = async (form) => {
         try {
+            console.log(this.apiUrl)
             const response = await fetch(`${this.apiUrl}/create`, {
-              method: 'POST',
-              body: form
+                method: 'POST',
+                body: form
             });
-            
+
             const result = await response.json();
             console.log("Room created:", result);
-          } catch (error) {
+        } catch (error) {
             console.error("Error creating room:", error);
-          }
-        };
+        }
     };
 
     // Метод для отримання всіх кімнат
@@ -33,4 +33,4 @@ class RoomService {
     };
 }
 
-export default RoomService;
+export default new RoomService();

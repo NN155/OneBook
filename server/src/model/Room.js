@@ -20,7 +20,7 @@ const roomSchema = new Schema({
     enum: ['available', 'booked', 'unavailable'], // Можливі статуси кімнати
     default: 'available' // Стандартне значення
   },
-  image: {
+  imageUrl: {
     type: String,
     required: true
   }

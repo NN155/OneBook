@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const RoomController = require('../controller/roomController');
-const multer = require('multer');
-const storage = multer.memoryStorage(); // Використовуємо пам'ять для зберігання файлів
-const upload = multer({ storage });
+const upload  = require('../middlewares/multer');
 
 router.use('/create', upload.single('image'), RoomController.createRoom);
 

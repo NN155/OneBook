@@ -1,5 +1,6 @@
 import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Tooltip } from "@chakra-ui/react";
 import { useState } from "react";
+import { RoomService } from "../../services";
 
 const roomTypes = [
   { value: "standard", label: "Standard", description: "Standard room with basic amenities" },
@@ -47,19 +48,8 @@ const CreateRoomForm = () => {
     if (formData.image) {
       form.append("image", formData.image); // додаємо файл у FormData
     }
-
-    try {
-      const response = await fetch('/api/rooms', {
-        method: 'POST',
-        body: form
-      });
-      
-      const result = await response.json();
-      console.log("Room created:", result);
-    } catch (error) {
-      console.error("Error creating room:", error);
-    }
-  };
+    RoomService.createRoom(form);
+  }
 
   return (
     <Box p={8} maxWidth="500px" mx="auto" bg="gray.100" borderRadius="md" boxShadow="md">
