@@ -19,7 +19,7 @@ const CreateRoomForm = () => {
     name: '',
     type: '',
     price: '',
-    image: ''
+    image: null  // зберігатимемо файл тут
   });
 
   const handleChange = (e) => {
@@ -30,9 +30,35 @@ const CreateRoomForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0] // зберігаємо вибраний файл
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    const form = new FormData();
+    form.append("name", formData.name);
+    form.append("type", formData.type);
+    form.append("price", formData.price);
+    if (formData.image) {
+      form.append("image", formData.image); // додаємо файл у FormData
+    }
+
+    try {
+      const response = await fetch('/api/rooms', {
+        method: 'POST',
+        body: form
+      });
+      
+      const result = await response.json();
+      console.log("Room created:", result);
+    } catch (error) {
+      console.error("Error creating room:", error);
+    }
   };
 
   return (
@@ -80,12 +106,11 @@ const CreateRoomForm = () => {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel>Image URL</FormLabel>
+            <FormLabel>Image</FormLabel>
             <Input
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              placeholder="Enter image URL"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}  // Обробник для вибору файлу
             />
           </FormControl>
 
