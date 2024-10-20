@@ -12,14 +12,13 @@ class RoomController {
             const room = await RoomServices.create({ name, type, price, imageUrl });
             return res.json(room);
         } catch (error) {
-            console.log(error)
             return res.status(400).json({ message: error.message });
         }
     }
 
     async getRooms(req, res) {
         try {
-            const rooms = await RoomServices.getRooms();
+            const rooms = await RoomServices.get();
             return res.json(rooms);
         } catch (error) {
             return res.status(400).json({ message: error.message });

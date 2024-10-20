@@ -5,6 +5,6 @@ const upload  = require('../middlewares/multer');
 
 router.use('/create', upload.single('image'), RoomController.createRoom);
 
-// router.use('/get',);
+router.use('/get', RoomController.getRooms);
 
 module.exports = router;

@@ -1,6 +1,7 @@
-import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Tooltip } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, Select, VStack, Heading, Tooltip, Text, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { RoomService } from "../../services";
+import { useNavigate } from "react-router-dom";
 
 const roomTypes = [
   { value: "standard", label: "Standard", description: "Standard room with basic amenities" },
@@ -16,6 +17,7 @@ const roomTypes = [
 ];
 
 const CreateRoomForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     type: '',
@@ -31,12 +33,23 @@ const CreateRoomForm = () => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      image: e.target.files[0] // зберігаємо вибраний файл
-    });
+
+  const [fileName, setFileName] = useState('');
+
+  const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+          setFileName(file.name); // Store the file name in state
+      } else {
+          setFileName(''); // Reset the file name if nothing is selected
+      }
+
+      setFormData({
+        ...formData,
+        image: file // зберігаємо вибраний файл
+      });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,8 +61,11 @@ const CreateRoomForm = () => {
     if (formData.image) {
       form.append("image", formData.image); // додаємо файл у FormData
     }
-    RoomService.createRoom(form);
+    await RoomService.createRoom(form);
+    navigate('/');
   }
+
+
 
   return (
     <Box p={8} maxWidth="500px" mx="auto" bg="gray.100" borderRadius="md" boxShadow="md">
@@ -98,11 +114,28 @@ const CreateRoomForm = () => {
           <FormControl isRequired>
             <FormLabel>Image</FormLabel>
             <Input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}  // Обробник для вибору файлу
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange} // Handler for file selection
+                display="none" // Hides the default input
+                id="file-upload" // Unique identifier for association
             />
-          </FormControl>
+            <Flex alignItems="center" mt={2}>
+                <Button as="label" htmlFor="file-upload" variant="outline">
+                    Choose File
+                </Button>
+                <Text
+                    ml={2}
+                    color="gray.500"
+                    whiteSpace="nowrap" // Prevent line break
+                    overflow="hidden" // Hide overflow
+                    textOverflow="ellipsis" // Show ellipsis for overflow text
+                    maxWidth="200px" // Set a maximum width
+                >
+                    {fileName}
+                </Text>
+            </Flex>
+        </FormControl>
 
           <Button type="submit" colorScheme="blue" width="full">
             Create Room

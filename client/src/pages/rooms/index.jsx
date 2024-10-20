@@ -1,12 +1,15 @@
+import React from 'react';
 import { RoomCard } from '../../components';
 import { Box, Grid, Heading } from '@chakra-ui/react';
+import RoomService from '../../services/room';
 
 const RoomsPage = () => {
-    const rooms = [
-      { id: 1, name: 'Living Room', description: 'A cozy living room', image: 'https://via.placeholder.com/150' },
-      { id: 2, name: 'Bedroom', description: 'A quiet bedroom', image: 'https://via.placeholder.com/150' },
-      { id: 3, name: 'Kitchen', description: 'A modern kitchen', image: 'https://via.placeholder.com/150' },
-    ];
+    const [rooms, setRooms] = React.useState([]);
+    React.useEffect(() => {
+        RoomService.getAllRooms().then((data) => {
+            setRooms(data);
+        });
+    }, []);
 
     return (
         <Box p={8} bg="gray.100">

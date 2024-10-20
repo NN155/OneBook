@@ -12,11 +12,23 @@ export const RoomCard = ({ room }) => {
 
     return (
         <Box sx={cardStyles}>
-            <Image src={room.image} alt={room.name} borderRadius="md" />
+            <Image
+                src={room.imageUrl}
+                alt={room.name}
+                borderRadius="md"
+                maxW="250px"
+                minW="150px"
+                maxH="200px"
+                minH="150px"
+                objectFit="cover"
+                mx="auto"
+            />
             <Heading size="md" mt={2}>
                 {room.name}
             </Heading>
             <Text mt={2}>{room.description}</Text>
+            <Text mt={2}>Price: ${room.price}/night</Text>
+            <Text mt={2}>Status: {room.status}</Text>
             <Flex justifyContent="center" mt={4}>
                 <NavLink to={`/room/${room.id}`} style={{ textDecoration: 'none' }}>
                     <Box
@@ -27,7 +39,7 @@ export const RoomCard = ({ room }) => {
                         color="white"
                         _hover={{ bg: "blue.600" }}
                     >
-                        View Room
+                        More
                     </Box>
                 </NavLink>
             </Flex>

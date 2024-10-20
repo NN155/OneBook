@@ -1,28 +1,12 @@
 const Room = require('../../../model/Room');
 
-const get = async (priceRange, type) => {
+const get = async () => {
     try {
-        const query = {};
-        
-        if (priceRange) {
-            query.price = {
-                $gte: priceRange.min,
-                $lte: priceRange.max,
-            };
-        }
-
-        if (type) {
-            query.type = type;
-        }
-
-        const rooms = await Room.find(query).sort({ price: 1 });
+        const rooms = await Room.find().sort({ price: 1 });
         return rooms;
     } catch (error) {
         throw new Error(error);
     }
 };
 
-module.exports = {
-    get,
-    // Інші функції для управління кімнатами (створення, оновлення, видалення)
-};
+module.exports = get
