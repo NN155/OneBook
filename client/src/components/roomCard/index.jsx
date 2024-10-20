@@ -28,6 +28,7 @@ export const RoomCard = ({ room }) => {
             </Heading>
             <Text mt={2}>{room.description}</Text>
             <Text mt={2}>Price: ${room.price}/night</Text>
+            <Text mt={2}>Type: {room.type}</Text>
             <Text mt={2}>Status: {room.status}</Text>
             <Flex justifyContent="center" mt={4}>
                 <NavLink to={`/room/${room.id}`} style={{ textDecoration: 'none' }}>
