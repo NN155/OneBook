@@ -11,25 +11,25 @@ export const RoomCard = ({ room }) => {
     };
 
     return (
-        <Box sx={cardStyles}>
-            <Image
-                src={room.imageUrl}
-                alt={room.name}
-                borderRadius="md"
-                maxW="250px"
-                minW="150px"
-                maxH="200px"
-                minH="150px"
-                objectFit="cover"
-                mx="auto"
-            />
-            <Heading size="md" mt={2}>
-                {room.name}
-            </Heading>
-            <Text mt={2}>{room.description}</Text>
-            <Text mt={2}>Price: ${room.price}/night</Text>
-            <Text mt={2}>Type: {room.type}</Text>
-            <Text mt={2}>Status: {room.status}</Text>
+        <Box sx={cardStyles} display="flex" flexDirection="column" justifyContent="space-between">
+            <Box>
+                <Image
+                    src={room.imageUrl}
+                    alt={room.name}
+                    borderRadius="md"
+                    w="250px"
+                    h="175px"
+                    objectFit="cover"
+                    mx="auto"
+                />
+                <Heading size="md" mt={2}>
+                    {room.name}
+                </Heading>
+                <Text mt={2}>{room.description}</Text>
+                <Text mt={2}>Price: ${room.price}/night</Text>
+                <Text mt={2}>Type: {room.type}</Text>
+                <Text mt={2}>Status: {room.status}</Text>
+            </Box>
             <Flex justifyContent="center" mt={4}>
                 <NavLink to={`/room/${room.id}`} style={{ textDecoration: 'none' }}>
                     <Box
